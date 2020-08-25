@@ -30,7 +30,7 @@ const MyAppBar = ({ title }: Props) => {
 
   return (
     <div className={classes.root}>
-      <AppBar position="static">
+      <AppBar>
         <Toolbar>
           <IconButton
             edge="start"
@@ -50,6 +50,8 @@ const MyAppBar = ({ title }: Props) => {
           </IconButton>
         </Toolbar>
       </AppBar>
+      
+      <Toolbar/>
     </div>
   );
 };

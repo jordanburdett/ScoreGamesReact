@@ -6,13 +6,15 @@ export default class Game {
   name: string
   teams: Array<Team>
   isFavorite: boolean
+  history: Array<{teamName: Array<string>}>
 
-  constructor(id: number, date: number, name: string, isFavorite: boolean ,teams: Array<Team>) {
+  constructor(id: number, date: number, name: string ,teams: Array<Team>, history: Array<{teamName: Array<string>}>, isFavorite: boolean = false) {
     this.id = id
     this.date = date
     this.name = name
     this.teams = teams
     this.isFavorite = isFavorite
+    this.history = history
   }
 }
 
