@@ -1,22 +1,22 @@
 {
   "files": {
     "main.css": "/ScoreGamesReact/static/css/main.5ecd60fb.chunk.css",
-    "main.js": "/ScoreGamesReact/static/js/main.c7e68846.chunk.js",
-    "main.js.map": "/ScoreGamesReact/static/js/main.c7e68846.chunk.js.map",
+    "main.js": "/ScoreGamesReact/static/js/main.26176504.chunk.js",
+    "main.js.map": "/ScoreGamesReact/static/js/main.26176504.chunk.js.map",
     "runtime-main.js": "/ScoreGamesReact/static/js/runtime-main.9292ffd9.js",
     "runtime-main.js.map": "/ScoreGamesReact/static/js/runtime-main.9292ffd9.js.map",
-    "static/js/2.73e66678.chunk.js": "/ScoreGamesReact/static/js/2.73e66678.chunk.js",
-    "static/js/2.73e66678.chunk.js.map": "/ScoreGamesReact/static/js/2.73e66678.chunk.js.map",
+    "static/js/2.e5e76a99.chunk.js": "/ScoreGamesReact/static/js/2.e5e76a99.chunk.js",
+    "static/js/2.e5e76a99.chunk.js.map": "/ScoreGamesReact/static/js/2.e5e76a99.chunk.js.map",
     "index.html": "/ScoreGamesReact/index.html",
-    "precache-manifest.3c6b56adb61092adcd63a6b836d72b61.js": "/ScoreGamesReact/precache-manifest.3c6b56adb61092adcd63a6b836d72b61.js",
+    "precache-manifest.ccab9b54a95507e0c03f98f6745ae01b.js": "/ScoreGamesReact/precache-manifest.ccab9b54a95507e0c03f98f6745ae01b.js",
     "service-worker.js": "/ScoreGamesReact/service-worker.js",
     "static/css/main.5ecd60fb.chunk.css.map": "/ScoreGamesReact/static/css/main.5ecd60fb.chunk.css.map",
-    "static/js/2.73e66678.chunk.js.LICENSE.txt": "/ScoreGamesReact/static/js/2.73e66678.chunk.js.LICENSE.txt"
+    "static/js/2.e5e76a99.chunk.js.LICENSE.txt": "/ScoreGamesReact/static/js/2.e5e76a99.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
     "static/js/runtime-main.9292ffd9.js",
-    "static/js/2.73e66678.chunk.js",
+    "static/js/2.e5e76a99.chunk.js",
     "static/css/main.5ecd60fb.chunk.css",
-    "static/js/main.c7e68846.chunk.js"
+    "static/js/main.26176504.chunk.js"
   ]
 }
