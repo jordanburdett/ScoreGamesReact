@@ -7,6 +7,7 @@ import StarBorder from "@material-ui/icons/StarBorder";
 import CheckBox from "@material-ui/core/Checkbox";
 import { makeStyles, createStyles, Theme } from "@material-ui/core/styles";
 import ListItemSecondaryAction from "@material-ui/core/ListItemSecondaryAction";
+import {firebaseUpdateIsFavorite} from '../classes/firebase'
 
 interface Props {
   game: Game;
@@ -29,7 +30,9 @@ const GameListItem = ({ game }: Props) => {
   const [isFavorite, setIsFavorite] = useState(game.isFavorite);
 
   const starClicked = () => {
+    firebaseUpdateIsFavorite(!isFavorite, game.id)
     setIsFavorite(!isFavorite);
+    
   };
 
   return (

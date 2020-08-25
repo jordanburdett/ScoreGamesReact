@@ -29,11 +29,13 @@ export default function GameList(): ReactElement {
   const gameCodesRef = rootRef.child("/GameCodes");
 
   useEffect(() => {
+
     // grab the games from firebase
-    gamesRef.once("value").then((snapshot) => {
+    gamesRef.on("value", (snapshot) => {
       setGames(convertGameList(snapshot))
     });
-  });
+
+  }, []);
 
   return (
     <List component="nav" className={classes.root}>
@@ -47,20 +49,3 @@ export default function GameList(): ReactElement {
     </List>
   );
 }
-
-const testGame = new Game(
-  1,
-  1600111233421,
-  "First Game",
-  [new Team("Jordan", 5000), new Team("Amber", 6000)],
-  [{ teamName: ["+500", "-299"] }]
-);
-
-// const testGame2 = new Game(2, 1600001233421, "Test Game", false, [
-//   new Team("basdfdan", 5000),
-//   new Team("Abob", 6000),
-// ]);
-// const testGame3 = new Game(3, 1600001233421, "Test Game3", true, [
-//   new Team("basdfdan", 5000),
-//   new Team("Abob", 6000),
-// ]);

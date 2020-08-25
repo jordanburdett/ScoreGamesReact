@@ -12,5 +12,17 @@ const firebaseConfig = {
 };
 
 firebase.initializeApp(firebaseConfig);
+const database = firebase.database()
 
 export default firebase
+
+
+
+
+export function firebaseUpdateIsFavorite(value: boolean, gameId: string) {
+  database.ref("games/" + gameId).update({
+    isFavorite: value
+  }, () => {
+    console.log("Favorite updated")
+  })
+}

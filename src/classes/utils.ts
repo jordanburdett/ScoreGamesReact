@@ -16,8 +16,9 @@ export function convertGameList(snapshot: firebase.database.DataSnapshot): Array
 
 export function convertGame(snapshot: firebase.database.DataSnapshot): Game {
   const game = snapshot.val()
+  const id = game.id as string || "";
 
-  const id = game.id as number || 0;
+  
   const date = game.date as number || 0;
   const name = game.name as string || "";
   const teams = game.teams as Array<Team> || null;
