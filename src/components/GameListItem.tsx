@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Game, { Team } from "../classes/Game";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemText from "@material-ui/core/ListItemText";
@@ -7,7 +7,7 @@ import StarBorder from "@material-ui/icons/StarBorder";
 import CheckBox from "@material-ui/core/Checkbox";
 import { makeStyles, createStyles, Theme } from "@material-ui/core/styles";
 import ListItemSecondaryAction from "@material-ui/core/ListItemSecondaryAction";
-import {firebaseUpdateIsFavorite} from '../classes/firebase'
+import firebase, { firebaseUpdateIsFavorite } from "../classes/firebase";
 
 interface Props {
   game: Game;
@@ -30,10 +30,14 @@ const GameListItem = ({ game }: Props) => {
   const [isFavorite, setIsFavorite] = useState(game.isFavorite);
 
   const starClicked = () => {
-    firebaseUpdateIsFavorite(!isFavorite, game.id)
-    setIsFavorite(!isFavorite);
-    
+    firebaseUpdateIsFavorite(!isFavorite, game.id);
   };
+
+  useEffect(() => {
+    firebase.database().ref(`games/${game.id}/isFavorite`).on("value", snapshot => {
+      setIsFavorite(snapshot.val())
+    })
+  }, []);
 
   return (
     <ListItem
@@ -50,7 +54,7 @@ const GameListItem = ({ game }: Props) => {
           edge="end"
           checked={isFavorite}
           onChange={starClicked}
-          checkedIcon={<StarIcon style={{color:"#FFDF00"}}/>}
+          checkedIcon={<StarIcon style={{ color: "#FFDF00" }} />}
           icon={<StarBorder />}
         />
       </ListItemSecondaryAction>

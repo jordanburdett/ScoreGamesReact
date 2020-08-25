@@ -32,6 +32,7 @@ export default function GameList(): ReactElement {
 
     // grab the games from firebase
     gamesRef.on("value", (snapshot) => {
+      console.log("update called")
       setGames(convertGameList(snapshot))
     });
 
