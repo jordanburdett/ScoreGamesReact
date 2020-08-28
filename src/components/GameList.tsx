@@ -62,11 +62,13 @@ export default function GameList(): ReactElement {
 
   // When the component first loads run this
   useEffect(() => {
-    const newGames: Array<Game> = [];
+    
 
     // Fetch all of the games from firebase
     usersRef.child("/games").on("value", async (snapshot) => {
       var count = 0;
+      
+      const newGames: Array<Game> = [];
 
       snapshot.forEach((snap) => {
         gamesRef.child("/" + snap.key).once("value", (game) => {
