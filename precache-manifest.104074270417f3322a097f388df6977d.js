@@ -1,10 +1,10 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "7f926acab55864924e4fca54ecbe0067",
+    "revision": "44a9a1fc43e7cbb75a1c6a43962ab6fa",
     "url": "/ScoreGamesReact/index.html"
   },
   {
-    "revision": "112405962db2e1f59d3c",
+    "revision": "02180e7827f775e1cbdc",
     "url": "/ScoreGamesReact/static/css/main.5ecd60fb.chunk.css"
   },
   {
@@ -16,8 +16,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/ScoreGamesReact/static/js/2.bb0ef0bf.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "112405962db2e1f59d3c",
-    "url": "/ScoreGamesReact/static/js/main.704a64db.chunk.js"
+    "revision": "02180e7827f775e1cbdc",
+    "url": "/ScoreGamesReact/static/js/main.1f5fc2b2.chunk.js"
   },
   {
     "revision": "114a30e7ea78f935060c",
