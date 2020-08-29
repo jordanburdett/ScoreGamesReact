@@ -14,6 +14,10 @@ export default class Game {
     this.teams = teams
     this.isFavorite = isFavorite
   }
+
+  tempGame(): Game {
+    return new Game(this.id, this.date, this.name, this.teams, this.isFavorite)
+  }
 }
 
 export class Team {
@@ -38,6 +42,10 @@ export class Team {
     else {
       this.history.addScore(String(score))
     }
+  }
+
+  createTeamForFirebase(): Team {
+    return new Team(this.name,this.score,this.history)
   }
 }
 

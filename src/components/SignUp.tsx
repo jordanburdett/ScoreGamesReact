@@ -52,20 +52,12 @@ interface Props {
 
 export default function SignUp({ toggle }: Props) {
   const classes = useStyles();
-  const [firstName, setFirstName] = useState("");
-  const [lastname, setLastname] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [rememberMe, setRememberMe] = useState(false);
   const [hasError, setHasError] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
-  const onFirstNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setFirstName(event.target.value);
-  };
-
-  const onLastNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setLastname(event.target.value);
-  };
+  
   const onEmailChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setEmail(event.target.value.toLowerCase());
   };
@@ -83,11 +75,15 @@ export default function SignUp({ toggle }: Props) {
       // ...
     }).catch(function(error) {
       // Handle Errors here.
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
       var errorCode = error.code;
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
       var errorMessage = error.message;
       // The email of the user's account used.
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
       var email = error.email;
       // The firebase.auth.AuthCredential type that was used.
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
       var credential = error.credential;
       // ...
     });

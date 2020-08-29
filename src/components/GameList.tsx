@@ -1,5 +1,5 @@
 import React, { ReactElement, useState, useEffect } from "react";
-import Game, { Team } from "../classes/Game";
+import Game from "../classes/Game";
 import GameListItem from "./GameListItem";
 import List from "@material-ui/core/List";
 import Divider from "@material-ui/core/Divider";
@@ -8,6 +8,7 @@ import firebase from "../classes/firebase";
 import { convertGame } from "../classes/utils";
 import CircularProgress from "@material-ui/core/CircularProgress/CircularProgress";
 import { Typography } from "@material-ui/core";
+
 
 // const mockData1 = new Game("asdfasdf1", 2342314234, "Name 1", [
 //   new Team("bob", 500),
@@ -25,7 +26,9 @@ import { Typography } from "@material-ui/core";
 //   new Team("bob", 500),
 // ]);
 
-interface Props {}
+interface Props {
+  startGame: Function;
+}
 
 const database = firebase.database();
 var defaultState: Array<Game> = [
@@ -50,7 +53,7 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-export default function GameList(): ReactElement {
+export default function GameList({startGame}: Props): ReactElement {
   const classes = useStyles();
   const [games, setGames] = useState(defaultState);
   const [gamesHaveLoaded, setGamesHaveLoaded] = useState(false);
@@ -111,7 +114,7 @@ export default function GameList(): ReactElement {
           {games.map((game, index) => (
             <div key={game.id}>
               {index !== 0 && <Divider />}
-              <GameListItem game={game} />
+              <GameListItem onClick={startGame} game={game} />
             </div>
           ))}
         </List>

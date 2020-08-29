@@ -1,4 +1,4 @@
-import Game, { Team, TeamHistory } from "./Game";
+import Game, { Team } from "./Game";
 import * as firebase from 'firebase';
 
 export function convertGameList(snapshot: firebase.database.DataSnapshot): Array<Game> {

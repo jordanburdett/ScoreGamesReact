@@ -11,6 +11,7 @@ import AddIcon from "@material-ui/icons/Add";
 import makeStyles from "@material-ui/core/styles/makeStyles";
 import { Theme } from "@material-ui/core/styles/createMuiTheme";
 import createStyles from "@material-ui/core/styles/createStyles";
+import PlayGame from "./PlayGame"
 
 interface Props {}
 
@@ -25,62 +26,44 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
+var gameState: Game;
+
 const HomeScreen = (props: Props) => {
   const classes = useStyles();
 
   const [isCreatingGame, setIsCreatingGame] = useState(false);
   const [isPlayingGame, setIsPlayingGame] = useState(false);
-
-  const buttonClick = async () => {
-    let history = new TeamHistory(["+500", "-200", "+5", "+200", "-299"]);
-    let team = new Team("Bob", history.calcTotalScore(), history);
-
-    let history2 = new TeamHistory(["+50", "-20", "+50", "+204560", "-299"]);
-    let team2 = new Team("Billy", history2.calcTotalScore(), history);
-    let newGameRef = await firebase.database().ref("/games").push();
-    let game = new Game(
-      newGameRef.key || "123214",
-      Date.now(),
-      "Game created in code",
-      [team, team2]
-    );
-
-    newGameRef.set(game);
-    let update = new Map();
-    update.set(newGameRef.key, true);
-
-    let userId = firebase.auth().currentUser?.uid;
-    console.log(userId);
-    console.log(update);
-    firebase
-      .database()
-      .ref("/Users/" + userId + "/games")
-      .update(Object.fromEntries(update), () => {
-        console.log("completed?");
-      });
-  };
+  const [gameToPlay, setGameToPlay] = useState(gameState);
 
   const createGame = () => {
     setIsCreatingGame(true);
     setIsPlayingGame(false);
   };
 
-  const startGame = () => {
-    // setIsCreatingGame(false);
-    // setIsPlayingGame(true);
-
+  const startGame = (game: Game) => {
+    console.log("start game called");
+    setGameToPlay(game);
     setIsCreatingGame(false);
+    setIsPlayingGame(true);
   };
 
   return (
     <div className={classes.root}>
-      <MyAppBar title={isCreatingGame ? "Create Game" : "My Games"} />
+      <MyAppBar
+        title={
+          isCreatingGame
+            ? "Create Game"
+            : isPlayingGame
+            ? gameToPlay.name
+            : "My Games"
+        }
+      />
       <Container>
-        {isCreatingGame ? (
-          <CreateGame startGame={startGame} />
-        ) : (
+        {isCreatingGame && <CreateGame startGame={startGame} />}
+        {isPlayingGame && <PlayGame game={gameToPlay} />}
+        {isCreatingGame === false && isPlayingGame === false && (
           <>
-            <GameList />
+            <GameList startGame={startGame} />
             <div className={classes.addGameButton}>
               <Fab
                 color="secondary"
@@ -91,9 +74,6 @@ const HomeScreen = (props: Props) => {
                 <AddIcon />
               </Fab>
             </div>
-            <Button onClick={buttonClick} variant="contained">
-              Click me
-            </Button>
           </>
         )}
       </Container>
@@ -102,3 +82,32 @@ const HomeScreen = (props: Props) => {
 };
 
 export default HomeScreen;
+
+// const buttonClick = async () => {
+//   let history = new TeamHistory(["+500", "-200", "+5", "+200", "-299"]);
+//   let team = new Team("Bob", history.calcTotalScore(), history);
+
+//   let history2 = new TeamHistory(["+50", "-20", "+50", "+204560", "-299"]);
+//   let team2 = new Team("Billy", history2.calcTotalScore(), history);
+//   let newGameRef = await firebase.database().ref("/games").push();
+//   let game = new Game(
+//     newGameRef.key || "123214",
+//     Date.now(),
+//     "Game created in code",
+//     [team, team2]
+//   );
+
+//   newGameRef.set(game);
+//   let update = new Map();
+//   update.set(newGameRef.key, true);
+
+//   let userId = firebase.auth().currentUser?.uid;
+//   console.log(userId);
+//   console.log(update);
+//   firebase
+//     .database()
+//     .ref("/Users/" + userId + "/games")
+//     .update(Object.fromEntries(update), () => {
+//       console.log("completed?");
+//     });
+// };

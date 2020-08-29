@@ -1,32 +1,24 @@
 import React, { useState, useEffect } from "react";
-import Game, { Team } from "../classes/Game";
+import Game from "../classes/Game";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemText from "@material-ui/core/ListItemText";
 import StarIcon from "@material-ui/icons/Star";
 import StarBorder from "@material-ui/icons/StarBorder";
 import CheckBox from "@material-ui/core/Checkbox";
-import { makeStyles, createStyles, Theme } from "@material-ui/core/styles";
 import ListItemSecondaryAction from "@material-ui/core/ListItemSecondaryAction";
 import firebase, { firebaseUpdateIsFavorite } from "../classes/firebase";
 
 interface Props {
   game: Game;
+  onClick: Function;
 }
 
-const useStyles = makeStyles((theme: Theme) => {
-  return createStyles({
-    arrow: {
-      minWidth: "0",
-    },
-  });
-});
 
-const GameListItem = ({ game }: Props) => {
-  const classes = useStyles();
+const GameListItem = ({ game, onClick }: Props) => {
 
   // state to keep track of
-  const [date, setDate] = useState(new Date(game.date));
-  const [gameName, setGameName] = useState(game.name);
+  const [date] = useState(new Date(game.date));
+  const [gameName] = useState(game.name);
   const [isFavorite, setIsFavorite] = useState(game.isFavorite);
 
   const starClicked = () => {
@@ -43,8 +35,8 @@ const GameListItem = ({ game }: Props) => {
     <ListItem
       key={game.id}
       button
-      onClick={(event) => {
-        console.log("Play " + gameName);
+      onClick={() => {
+        onClick(game)
       }}
     >
       <ListItemText primary={gameName} secondary={date.toDateString()} />
