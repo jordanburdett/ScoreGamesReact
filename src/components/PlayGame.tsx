@@ -14,13 +14,21 @@ const PlayGame = (props: Props) => {
   const updatePoints = (score: number, teamName: string, index: number) => {
     let newHistory: Array<string> = [];
 
-    if (score > 0) {
-      newHistory = [
-        ...game.teams[index].history.pastScores,
-        "+" + String(score),
-      ];
+    if (game.teams[index].history) {
+      if (score > 0) {
+        newHistory = [
+          ...game.teams[index].history.pastScores,
+          "+" + String(score),
+        ];
+      } else {
+        newHistory = [...game.teams[index].history.pastScores, String(score)];
+      }
     } else {
-      newHistory = [...game.teams[index].history.pastScores, String(score)];
+      if (score > 0) {
+        newHistory.push("+" + String(score));
+      } else {
+        newHistory.push(String(score));
+      }
     }
 
     const newScore = game.teams[index].score + score;

@@ -59,6 +59,10 @@ const PlayGameTeam = ({ team, updatePoints, index }: Props) => {
   // }
 
   const addScore = (isPositive: boolean) => {
+    if (scoreChange === "") {
+      return
+    }
+
     if (isPositive) {
       updatePoints(Number(scoreChange), team.name, index)
     }
@@ -100,7 +104,7 @@ const PlayGameTeam = ({ team, updatePoints, index }: Props) => {
                 margin="normal"
                 required
                 fullWidth
-                type="number"
+                type="tel"
                 label="+ or - Score"
                 name="gameName"
                 value={scoreChange}
