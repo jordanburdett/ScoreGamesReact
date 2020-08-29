@@ -110,6 +110,8 @@ const PlayGameTeam = ({ team, updatePoints, index }: Props) => {
                 value={scoreChange}
                 onChange={onInputChange}
                 autoFocus
+                inputMode='numeric' 
+                
               />
             </Grid>
             <Grid item xs={3}>
