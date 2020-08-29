@@ -8,6 +8,8 @@ import Typography from "@material-ui/core/Typography";
 import AccountCircle from "@material-ui/icons/AccountCircle";
 import firebase from "../classes/firebase"
 import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
+import Menu from '@material-ui/core/Menu';
+import MenuItem from '@material-ui/core/MenuItem';
 
 interface Props {
   title: string;
@@ -31,14 +33,23 @@ const useStyles = makeStyles((theme: Theme) =>
 
 const MyAppBar = ({ title, showBackArrow, onBackArrowClick }: Props) => {
   const classes = useStyles();
+  const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null)
 
-  const accountButtonClick = () => {
+  const signOut = () => {
     firebase.auth().signOut()
   }
 
   const onMenuButtonClick = () => {
 
   }
+
+  const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
 
   return (
     <div className={classes.root}>
@@ -58,9 +69,18 @@ const MyAppBar = ({ title, showBackArrow, onBackArrowClick }: Props) => {
             {title}
           </Typography>
 
-          <IconButton color="inherit" edge="end" onClick={accountButtonClick}>
+          <IconButton color="inherit" edge="end" onClick={handleClick}>
             <AccountCircle />
           </IconButton>
+          <Menu
+            id="accountMenu"
+            anchorEl={anchorEl}
+            keepMounted
+            open={Boolean(anchorEl)}
+            onClose={handleClose}
+          >
+            <MenuItem onClick={signOut}>Sign Out</MenuItem>
+          </Menu>
         </Toolbar>
       </AppBar>
       
