@@ -62,6 +62,9 @@ const PlayGameTeam = ({ team, updatePoints, index, gameId }: Props) => {
   };
 
   const onInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    if (isNaN(Number(event.target.value))) {
+      return;
+    }
     setScoreChange(event.target.value);
   };
 
@@ -78,6 +81,8 @@ const PlayGameTeam = ({ team, updatePoints, index, gameId }: Props) => {
     if (scoreChange === "") {
       return;
     }
+
+    
 
     if (isPositive) {
       updatePoints(Number(scoreChange), team.name, index);

@@ -51,6 +51,7 @@ const CreateGame = ({ startGame }: Props) => {
   const [gameName, setGameName] = useState("");
   const [teams, setTeams] = useState(teamState);
   const [currentTeam, setCurrentTeam] = useState("");
+  const [isErrorTeams, setIsErrorTeams] = useState(false)
 
   const onGameNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setGameName(event.target.value);
@@ -72,6 +73,14 @@ const CreateGame = ({ startGame }: Props) => {
 
   const onSubmit = async (event: FormEvent) => {
     event.preventDefault();
+
+    if (teams.length < 1) {
+      console.log("Need at least one team to continue")
+
+      // TODO add error handling/message to
+      setIsErrorTeams(true)
+      return
+    }
 
     const userId = firebase.auth().currentUser?.uid
     const newGameRef = (await firebase.database().ref("/games").push())
@@ -132,8 +141,8 @@ const CreateGame = ({ startGame }: Props) => {
                 </Typography>
               </Grid>
 
-              {teams.map((team) => (
-                <Grid item xs={6} key={team.name}>
+              {teams.map((team, index) => (
+                <Grid item xs={6} key={index + team.name}>
                   <CreateTeamDisplay team={team} onDelete={onDeleteTeam} />
                 </Grid>
               ))}
@@ -160,6 +169,7 @@ const CreateGame = ({ startGame }: Props) => {
                     onChange={onCurrentTeamChange}
                     autoComplete="current-password"
                     onKeyPress={keyPressed}
+                    error={isErrorTeams}
                   />
                 </Grid>
                 <Grid item xs={4}>
