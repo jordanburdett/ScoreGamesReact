@@ -1,19 +1,102 @@
-import React from "react";
+import React, { useState } from "react";
 import GameList from "./GameList";
 import MyAppBar from "./MyAppBar";
 import Container from "@material-ui/core/Container";
+import Button from "@material-ui/core/Button/Button";
+import Game, { Team, TeamHistory } from "../classes/Game";
+import firebase from "../classes/firebase";
+import CreateGame from "./CreateGame";
+import Fab from "@material-ui/core/Fab/Fab";
+import AddIcon from "@material-ui/icons/Add";
+import makeStyles from "@material-ui/core/styles/makeStyles";
+import { Theme } from "@material-ui/core/styles/createMuiTheme";
+import createStyles from "@material-ui/core/styles/createStyles";
 
 interface Props {}
 
+const useStyles = makeStyles((theme: Theme) =>
+  createStyles({
+    root: {
+      '& > *': {
+        margin: theme.spacing(1),
+      },
+    },
+    addGameButton: {
+      position: 'absolute',
+      bottom: theme.spacing(2),
+      right: theme.spacing(2),
+    },
+  })
+);
+
 const HomeScreen = (props: Props) => {
+  const classes = useStyles();
+
+  const [isCreatingGame, setIsCreatingGame] = useState(false);
+  const [isPlayingGame, setIsPlayingGame] = useState(false);
+
+  const buttonClick = async () => {
+    let history = new TeamHistory(["+500", "-200", "+5", "+200", "-299"]);
+    let team = new Team("Bob", history.calcTotalScore(), history);
+
+    let history2 = new TeamHistory(["+50", "-20", "+50", "+204560", "-299"]);
+    let team2 = new Team("Billy", history2.calcTotalScore(), history);
+    let newGameRef = await firebase.database().ref("/games").push();
+    let game = new Game(
+      newGameRef.key || "123214",
+      Date.now(),
+      "Game created in code",
+      [team, team2]
+    );
+
+    newGameRef.set(game);
+    let update = new Map();
+    update.set(newGameRef.key, true);
+
+    let userId = await firebase.auth().currentUser?.uid;
+    console.log(userId);
+    console.log(update);
+    firebase
+      .database()
+      .ref("/Users/" + userId + "/games")
+      .update(Object.fromEntries(update), () => {
+        console.log("completed?");
+      });
+  };
+
+  const createGame = () => {
+    setIsCreatingGame(true);
+    setIsPlayingGame(false);
+  };
+
+  const startGame = () => {
+    setIsCreatingGame(false);
+    setIsPlayingGame(true);
+  };
+
   return (
-    <>
-      <MyAppBar title={"My Games"}/>
+    <div className={classes.root}>
+      <MyAppBar title={"My Games"} />
       <Container>
-        <GameList />
+        {isCreatingGame ? (
+          <CreateGame />
+        ) : (
+          <>
+            <GameList />
+            <div className={classes.addGameButton}>
+              <Fab color="secondary" size="large" aria-label="add" onClick={createGame}>
+                <AddIcon />
+              </Fab>
+            </div>
+          </>
+        )}
       </Container>
-      
-    </>
+      <Button onClick={buttonClick} variant="contained">
+        Click me
+      </Button>
+    
+    
+    </div>
   );
 };
 

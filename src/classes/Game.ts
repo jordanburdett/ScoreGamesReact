@@ -6,24 +6,69 @@ export default class Game {
   name: string
   teams: Array<Team>
   isFavorite: boolean
-  history: Array<{teamName: Array<string>}>
 
-  constructor(id: string, date: number, name: string ,teams: Array<Team>, history: Array<{teamName: Array<string>}> = [{teamName: ["billy"]}], isFavorite: boolean = false) {
+  constructor(id: string, date: number, name: string ,teams: Array<Team>, isFavorite: boolean = false) {
     this.id = id
     this.date = date
     this.name = name
     this.teams = teams
     this.isFavorite = isFavorite
-    this.history = history
   }
 }
 
 export class Team {
   name: string
   score: number
+  history: TeamHistory
 
-  constructor(name: string, score: number) {
+  constructor(name: string, score: number, history: TeamHistory) {
     this.name = name
     this.score = score
+    this.history = history
+  }
+
+
+  addScore(score: number) {
+    this.score += score
+
+    //update history
+    if (score > 0) {
+      this.history.addScore("+" + String(score))
+    } 
+    else {
+      this.history.addScore(String(score))
+    }
+  }
+}
+
+export class TeamHistory {
+  pastScores: Array<string>
+
+  constructor(pastScores: Array<string>) {
+    
+    this.pastScores = pastScores
+  }
+
+  addScore(score: string) {
+    this.pastScores.push(score)
+  }
+
+  removeScore(indexOfScore: number) {
+    this.pastScores.splice(indexOfScore)
+  }
+
+  editScore(indexOfScore: number, updatedScore: string) {
+    this.pastScores[indexOfScore] = updatedScore
+  }
+
+  calcTotalScore() : number {
+    let totalScore = 0
+
+    this.pastScores.forEach(score => {
+      let convertedScore = Number(score)
+      totalScore = totalScore + convertedScore
+    })
+
+    return totalScore
   }
 }

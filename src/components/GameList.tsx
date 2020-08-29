@@ -7,6 +7,7 @@ import { makeStyles, createStyles, Theme } from "@material-ui/core/styles";
 import firebase from "../classes/firebase";
 import { convertGame } from "../classes/utils";
 import CircularProgress from "@material-ui/core/CircularProgress/CircularProgress";
+import { Typography } from "@material-ui/core";
 
 // const mockData1 = new Game("asdfasdf1", 2342314234, "Name 1", [
 //   new Team("bob", 500),
@@ -38,21 +39,22 @@ var defaultState: Array<Game> = [
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     spinner: {
-      display: 'flex',
-      '& > * + *': {
+      display: "flex",
+      "& > * + *": {
         marginLeft: theme.spacing(2),
       },
-      alignItems: 'center',
-      justifyContent: 'center',
-      minHeight: '200px',
+      alignItems: "center",
+      justifyContent: "center",
+      minHeight: "200px",
     },
-  }),
+  })
 );
 
 export default function GameList(): ReactElement {
   const classes = useStyles();
   const [games, setGames] = useState(defaultState);
   const [gamesHaveLoaded, setGamesHaveLoaded] = useState(false);
+  const [userHasNoGames, setUserHasNoGames] = useState(false);
 
   // database references
   const rootRef = database.ref();
@@ -62,33 +64,44 @@ export default function GameList(): ReactElement {
 
   // When the component first loads run this
   useEffect(() => {
-    
-
     // Fetch all of the games from firebase
-    usersRef.child("/games").on("value", async (snapshot) => {
-      var count = 0;
-      
-      const newGames: Array<Game> = [];
+    usersRef
+      .child("/games")
+      .orderByChild("date")
+      .on("value", async (snapshot) => {
 
-      snapshot.forEach((snap) => {
-        gamesRef.child("/" + snap.key).once("value", (game) => {
-          if (game.val() == null) {
-            // Game Id not found lets clean up the database a little and delete the ones that the game does not exist on.
-            console.log(snapshot.key);
-            usersRef.child("/games/" + snapshot.key).set(null);
-          } else {
-            //game.val() contains a single game.
-            const newGame = convertGame(game);
-            newGames.push(newGame);
-            count = count + 1;
-            if (count === snapshot.numChildren()) {
-              setGames(newGames);
-              setGamesHaveLoaded(true);
+        // user has no games.
+        if (snapshot.val() === null) {
+          setGamesHaveLoaded(false);
+          setUserHasNoGames(true);
+
+          return;
+        }
+
+        var count = 0;
+
+        const newGames: Array<Game> = [];
+
+        snapshot.forEach((snap) => {
+          gamesRef.child("/" + snap.key).once("value", (game) => {
+            if (game.val() === null) {
+              // Game Id not found lets clean up the database a little and delete the ones that the game does not exist on.
+              usersRef.child("/games/" + snap.key).set(null);
+            } else {
+              //game.val() contains a single game.
+              const newGame = convertGame(game);
+              newGames.push(newGame);
+              count = count + 1;
+              if (count === snapshot.numChildren()) {
+                newGames.reverse();
+                setGames(newGames);
+                setGamesHaveLoaded(true);
+                setUserHasNoGames(false);
+              }
             }
-          }
+          });
         });
       });
-    });
   }, []);
 
   return (
@@ -102,9 +115,12 @@ export default function GameList(): ReactElement {
             </div>
           ))}
         </List>
+      ) : userHasNoGames ? (
+        <Typography variant="subtitle1" style={{ padding: "20px" }}>
+          No games here... You should make one!
+        </Typography>
       ) : (
         <div className={classes.spinner}>
-
           <CircularProgress />
         </div>
       )}

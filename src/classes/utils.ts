@@ -1,4 +1,4 @@
-import Game, { Team } from "./Game";
+import Game, { Team, TeamHistory } from "./Game";
 import * as firebase from 'firebase';
 
 export function convertGameList(snapshot: firebase.database.DataSnapshot): Array<Game> {
@@ -17,15 +17,12 @@ export function convertGameList(snapshot: firebase.database.DataSnapshot): Array
 export function convertGame(snapshot: firebase.database.DataSnapshot): Game {
   const game = snapshot.val()
   const id = game.id as string || "";
-
-  
   const date = game.date as number || 0;
   const name = game.name as string || "";
   const teams = game.teams as Array<Team> || null;
   const isFavorite = game.isFavorite as boolean || false;
-  const history = game.history as Array<{teamName: Array<string>}> || null;
 
-  return new Game(id, date, name, teams, history, isFavorite)
+  return new Game(id, date, name, teams, isFavorite)
 }
 
 

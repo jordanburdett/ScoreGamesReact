@@ -6,6 +6,7 @@ import IconButton from "@material-ui/core/IconButton";
 import MenuIcon from "@material-ui/icons/Menu";
 import Typography from "@material-ui/core/Typography";
 import AccountCircle from "@material-ui/icons/AccountCircle";
+import firebase from "../classes/firebase"
 
 interface Props {
   title: string;
@@ -28,6 +29,10 @@ const useStyles = makeStyles((theme: Theme) =>
 const MyAppBar = ({ title }: Props) => {
   const classes = useStyles();
 
+  const accountButtonClick = () => {
+    firebase.auth().signOut()
+  }
+
   return (
     <div className={classes.root}>
       <AppBar>
@@ -45,7 +50,7 @@ const MyAppBar = ({ title }: Props) => {
             {title}
           </Typography>
 
-          <IconButton color="inherit" edge="end">
+          <IconButton color="inherit" edge="end" onClick={accountButtonClick}>
             <AccountCircle />
           </IconButton>
         </Toolbar>
