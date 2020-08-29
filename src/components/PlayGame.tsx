@@ -57,9 +57,10 @@ const PlayGame = (props: Props) => {
       {game.teams.map((team, index) => (
         <PlayGameTeam
           team={team}
-          key={team.name}
+          key={index}
           index={index}
           updatePoints={updatePoints}
+          gameId={props.game.id}
         />
       ))}
     </div>
