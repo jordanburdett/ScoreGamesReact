@@ -21,7 +21,7 @@ export class Team {
   score: number
   history: TeamHistory
 
-  constructor(name: string, score: number, history: TeamHistory) {
+  constructor(name: string, score: number = 0, history: TeamHistory = new TeamHistory()) {
     this.name = name
     this.score = score
     this.history = history
@@ -44,7 +44,7 @@ export class Team {
 export class TeamHistory {
   pastScores: Array<string>
 
-  constructor(pastScores: Array<string>) {
+  constructor(pastScores: Array<string> = []) {
     
     this.pastScores = pastScores
   }
@@ -54,7 +54,7 @@ export class TeamHistory {
   }
 
   removeScore(indexOfScore: number) {
-    this.pastScores.splice(indexOfScore)
+    this.pastScores.splice(indexOfScore, 1)
   }
 
   editScore(indexOfScore: number, updatedScore: string) {

@@ -16,13 +16,9 @@ interface Props {}
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
-    root: {
-      '& > *': {
-        margin: theme.spacing(1),
-      },
-    },
+    root: {},
     addGameButton: {
-      position: 'absolute',
+      position: "absolute",
       bottom: theme.spacing(2),
       right: theme.spacing(2),
     },
@@ -53,7 +49,7 @@ const HomeScreen = (props: Props) => {
     let update = new Map();
     update.set(newGameRef.key, true);
 
-    let userId = await firebase.auth().currentUser?.uid;
+    let userId = firebase.auth().currentUser?.uid;
     console.log(userId);
     console.log(update);
     firebase
@@ -70,32 +66,37 @@ const HomeScreen = (props: Props) => {
   };
 
   const startGame = () => {
+    // setIsCreatingGame(false);
+    // setIsPlayingGame(true);
+
     setIsCreatingGame(false);
-    setIsPlayingGame(true);
   };
 
   return (
     <div className={classes.root}>
-      <MyAppBar title={"My Games"} />
+      <MyAppBar title={isCreatingGame ? "Create Game" : "My Games"} />
       <Container>
         {isCreatingGame ? (
-          <CreateGame />
+          <CreateGame startGame={startGame} />
         ) : (
           <>
             <GameList />
             <div className={classes.addGameButton}>
-              <Fab color="secondary" size="large" aria-label="add" onClick={createGame}>
+              <Fab
+                color="secondary"
+                size="large"
+                aria-label="add"
+                onClick={createGame}
+              >
                 <AddIcon />
               </Fab>
             </div>
+            <Button onClick={buttonClick} variant="contained">
+              Click me
+            </Button>
           </>
         )}
       </Container>
-      <Button onClick={buttonClick} variant="contained">
-        Click me
-      </Button>
-    
-    
     </div>
   );
 };

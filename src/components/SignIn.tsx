@@ -14,7 +14,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
 import firebase from "../classes/firebase";
 import { FormHelperText } from "@material-ui/core";
-import GoogleButton from 'react-google-button'
+import GoogleButton from "react-google-button";
 
 function Copyright() {
   return (
@@ -60,7 +60,6 @@ export default function SignIn({ toggle }: Props) {
   const onSubmit = (event: FormEvent) => {
     event.preventDefault();
 
-
     firebase
       .auth()
       .signInWithEmailAndPassword(username, password)
@@ -79,21 +78,25 @@ export default function SignIn({ toggle }: Props) {
   const signInWithGoogle = () => {
     let provider = new firebase.auth.GoogleAuthProvider();
 
-    firebase.auth().signInWithPopup(provider).then( user => {
-      // This gives you a Google Access Token. You can use it to access the Google API.
-      console.log(user)
-      // ...
-    }).catch(function(error) {
-      // Handle Errors here.
-      var errorCode = error.code;
-      var errorMessage = error.message;
-      // The email of the user's account used.
-      var email = error.email;
-      // The firebase.auth.AuthCredential type that was used.
-      var credential = error.credential;
-      // ...
-    });
-  }
+    firebase
+      .auth()
+      .signInWithPopup(provider)
+      .then((user) => {
+        // This gives you a Google Access Token. You can use it to access the Google API.
+        console.log(user);
+        // ...
+      })
+      .catch(function (error) {
+        // Handle Errors here.
+        var errorCode = error.code;
+        var errorMessage = error.message;
+        // The email of the user's account used.
+        var email = error.email;
+        // The firebase.auth.AuthCredential type that was used.
+        var credential = error.credential;
+        // ...
+      });
+  };
 
   const onUsernameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setUsername(event.target.value.toLowerCase());
@@ -180,7 +183,10 @@ export default function SignIn({ toggle }: Props) {
           </Grid>
           <Grid container>
             <Grid item xs={12}>
-              <GoogleButton onClick={signInWithGoogle} style={{marginTop: "50px"}}/>
+              <GoogleButton
+                onClick={signInWithGoogle}
+                style={{ marginTop: "50px" }}
+              />
             </Grid>
           </Grid>
         </form>
