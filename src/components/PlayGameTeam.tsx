@@ -100,6 +100,7 @@ const PlayGameTeam = ({ team, updatePoints, index }: Props) => {
                 margin="normal"
                 required
                 fullWidth
+                type="number"
                 label="+ or - Score"
                 name="gameName"
                 value={scoreChange}

@@ -86,7 +86,7 @@ const CreateGame = ({ startGame }: Props) => {
       .database()
       .ref("/Users/" + userId + "/games")
       .update(Object.fromEntries(update), () => {
-        startGame();
+        startGame(newGame);
       });
   };
 
