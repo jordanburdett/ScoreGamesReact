@@ -80,3 +80,15 @@ export class TeamHistory {
     return totalScore
   }
 }
+
+export class Round {
+  teams: Array<string>;
+
+  constructor(teams: Array<string>) {
+    this.teams = teams;
+  }
+
+  setValue(index: number, scoreString: string) {
+    this.teams[index] = scoreString;
+  }
+}

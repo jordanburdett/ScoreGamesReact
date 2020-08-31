@@ -85,9 +85,9 @@ const PlayGameTeam = ({ team, updatePoints, index, gameId }: Props) => {
     
 
     if (isPositive) {
-      updatePoints(Number(scoreChange), team.name, index);
+      updatePoints(Number(scoreChange), index);
     } else {
-      updatePoints(Number("-" + scoreChange), team.name, index);
+      updatePoints(Number("-" + scoreChange), index);
     }
 
     setScoreChange("");
@@ -98,12 +98,12 @@ const PlayGameTeam = ({ team, updatePoints, index, gameId }: Props) => {
     <Paper className={classes.paper} variant="outlined" onClick={expandCard}>
       <Grid container justify="center" alignItems="center">
         <Grid item xs={12}>
-          <Typography variant="subtitle1" className={classes.teamName}>
+          <Typography variant="h6" className={classes.teamName}>
             {team.name}
           </Typography>
         </Grid>
         <Grid item xs={12}>
-          <Typography variant="h6">{team.score}</Typography>
+          <Typography variant="h5">{team.score}</Typography>
         </Grid>
         <Grid item xs={12}>
           <IconButton>
