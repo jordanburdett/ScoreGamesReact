@@ -9,6 +9,8 @@ import TextField from "@material-ui/core/TextField";
 import HistoryItem from "./HistoryItem";
 import Button from "@material-ui/core/Button";
 import Paper from "@material-ui/core/Paper";
+import RemoveIcon from "@material-ui/icons/Remove";
+import AddIcon from "@material-ui/icons/Add";
 
 interface Props {
   game: Game;
@@ -97,6 +99,21 @@ const ScoreRound = ({ game, applyRound }: Props) => {
     }
   }
 
+  const makeNegative = () => {
+    setScore("-" + score)
+
+    if (currentTeamIndex + 1 === game.teams.length) {
+      console.log("last one")
+      showSummary()
+      return;
+    }
+
+    console.log("in make negative", score)
+    
+    onNextPlayer()
+    
+  }
+
   return (
     <div
       style={{
@@ -144,7 +161,7 @@ const ScoreRound = ({ game, applyRound }: Props) => {
 
           <Grid container style={{paddingTop: "20px"}}>
           <Grid item xs={6} style={{textAlign: "left"}}>
-            <Button variant="outlined" color="secondary" onClick={backToEdit}>Back</Button>
+            <Button variant="outlined" color="secondary" onClick={backToEdit}>Edit</Button>
           </Grid>
           <Grid item xs={6} style={{textAlign: "right"}}>
             <Button variant="outlined" color="primary" onClick={() => applyRound(round)}>Confirm</Button>
@@ -206,7 +223,12 @@ const ScoreRound = ({ game, applyRound }: Props) => {
             )}
           </Grid>
 
-          <Grid item xs={12}>
+          <Grid item xs={3} style={{textAlign: "right"}}>
+              <IconButton onClick={makeNegative}>
+                <RemoveIcon color="secondary" />
+              </IconButton>
+            </Grid>
+          <Grid item xs={6}>
             <TextField
               inputRef={textField}
               variant="outlined"
@@ -223,6 +245,12 @@ const ScoreRound = ({ game, applyRound }: Props) => {
               onClick={(e) => e.stopPropagation()}
             />
           </Grid>
+          <Grid item xs={3} style={{textAlign: "left"}}>
+              <IconButton onClick={(currentTeamIndex + 1 === game.teams.length ? showSummary : onNextPlayer)}>
+                <AddIcon color="primary" />
+              </IconButton>
+            </Grid>
+
           <Grid item xs={12} style={{ textAlign: "center" }}>
             <Typography variant="subtitle1">History</Typography>
           </Grid>
