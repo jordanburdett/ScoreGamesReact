@@ -59,6 +59,10 @@ const PlayGame = (props: Props) => {
     setIsScoringRound(false);
   }
 
+  const exitRound = () => {
+    setIsScoringRound(prevRound => false)
+  }
+
   useEffect(() => {
     const database = firebase.database();
 
@@ -96,7 +100,7 @@ const PlayGame = (props: Props) => {
       )}
 
       {isScoringRound ? (
-        <ScoreRound game={game} applyRound={applyRound}/>
+        <ScoreRound game={game} applyRound={applyRound} exitRound={exitRound}/>
       ) : (
         game.teams.map((team, index) => (
           <PlayGameTeam

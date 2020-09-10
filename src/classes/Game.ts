@@ -91,4 +91,8 @@ export class Round {
   setValue(index: number, scoreString: string) {
     this.teams[index] = scoreString;
   }
+
+  getValueAtIndex(index: number) : string {
+    return this.teams[index]
+  }
 }

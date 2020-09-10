@@ -144,7 +144,7 @@ const PlayGameTeam = ({ team, updatePoints, index, gameId }: Props) => {
               team.history.pastScores.map((score, historyIndex) => {
                 return (
                   <HistoryItem
-                    key={index}
+                    key={"indexof" + score + historyIndex}
                     isEditing={isEditing}
                     score={score}
                     index={historyIndex}
