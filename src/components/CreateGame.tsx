@@ -11,6 +11,7 @@ import Typography from "@material-ui/core/Typography";
 import Grid from "@material-ui/core/Grid";
 import CreateTeamDisplay from "./CreateTeamDisplay";
 import firebase from "../classes/firebase"
+import { convertGame } from "../classes/utils";
 
 interface Props {
   startGame: Function;
@@ -52,6 +53,39 @@ const CreateGame = ({ startGame }: Props) => {
   const [teams, setTeams] = useState(teamState);
   const [currentTeam, setCurrentTeam] = useState("");
   const [isErrorTeams, setIsErrorTeams] = useState(false)
+  const [gameCode, setGameCode] = useState("")
+  const [gameCodeError, setGameCodeError] = useState(false)
+
+  const onGameCodeChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setGameCode(event.target.value)
+  }
+
+  const onGameCodePlayClick = () => {
+    firebase.database().ref("GameCodes/").orderByChild("code").equalTo(gameCode).once("child_added").then(snap => {
+      if (snap.val()) {
+        console.log("HERE")
+        // We have valid input!
+        console.log("HERE", snap.key)
+
+        setGameCodeError(false)
+        firebase.database().ref("games/" + snap.key).once("value").then(game => {
+          const newGame = convertGame(game)
+          startGame(newGame)
+        })
+
+        let update = new Map();
+        update.set(snap.key, true);
+
+        firebase
+          .database()
+          .ref("/Users/" + firebase.auth().currentUser?.uid + "/games")
+          .update(Object.fromEntries(update));
+      }
+      else {
+        setGameCodeError(true)
+      }
+    })
+  }
 
   const onGameNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setGameName(event.target.value);
@@ -195,6 +229,33 @@ const CreateGame = ({ startGame }: Props) => {
             >
               Create Game
             </Button>
+            <Grid
+              container
+              alignContent="center"
+              alignItems="center"
+              justify="center"
+              spacing={1}
+              style={{ marginTop: "10px" }}
+            >
+              <Typography style={{ width: "100%", marginBottom: "10px" }}>
+                or
+              </Typography>
+              <Typography>Enter GameCode</Typography>
+              <TextField
+                value={gameCode}
+                onChange={onGameCodeChange}
+                error={gameCodeError}
+                style={{margin: "15px"}}
+              />
+              <Button
+                onClick={onGameCodePlayClick}
+                variant="outlined"
+                color="primary"
+                style={{marginTop: "10px"}}
+              >
+                Add By Code
+              </Button>
+            </Grid>
           </form>
         </div>
       </Container>
