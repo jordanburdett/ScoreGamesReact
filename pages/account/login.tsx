@@ -8,16 +8,12 @@ interface Props {}
 
 const Login = (props: Props) => {
   return (
-    <Container>
-      <Jumbotron>
-        <ButtonGroup className="mr-2">
-          <Button variant="primary">Login</Button>
-        </ButtonGroup>
-        <ButtonGroup>
-          <Button variant="dark">Sign-up</Button>
-        </ButtonGroup>
+    <Container fluid>
+      <Jumbotron fluid>
+        Login
       </Jumbotron>
     </Container>
+    
   );
 };
 
