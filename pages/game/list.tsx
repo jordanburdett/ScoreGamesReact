@@ -53,8 +53,11 @@ const list = () => {
 
     // add the game
     const reference = database.ref("/games").push(game);
-
+    console.log("look here", reference.key);
     // add the game to the user
+
+    database.ref("users/" + auth.currentUser?.uid + "/games").child(reference.key).set(true);
+    
   };
 
   // takes a game id passed in by reference and returns the game as a Game object
