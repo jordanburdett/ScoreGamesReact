@@ -12,12 +12,13 @@ const firebaseConfig = {
     measurementId: "G-Q1ZXRZP21R"
   };
 
-  firebase.initializeApp(firebaseConfig);
+  if (firebase.apps.length === 0) {
+    firebase.initializeApp(firebaseConfig);
+  }
+  
 
   // Get a reference to the database service
   var database = firebase.database();
   var auth = firebase.auth();
 
-  module.exports.database = database;
-  module.exports.firebase = firebase;
-  module.exports.auth = auth;
+  export { database, firebase, auth };

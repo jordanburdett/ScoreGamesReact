@@ -23,7 +23,7 @@ export default function Home() {
 
   return (
     <Container>
-      <Jumbotron flud={false}>
+      <Jumbotron>
         <Container>
           <h1>Welcome to Score Games.</h1>
           <p>The free to use realtime card game tracker!</p>
