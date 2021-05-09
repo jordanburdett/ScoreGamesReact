@@ -12,24 +12,19 @@ import makeStyles from "@material-ui/core/styles/makeStyles";
 import { Theme } from "@material-ui/core/styles/createMuiTheme";
 import createStyles from "@material-ui/core/styles/createStyles";
 import PlayGame from "./PlayGame";
+import styled from "styled-components";
 
 interface Props {}
 
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    root: {},
-    addGameButton: {
-      position: "absolute",
-      bottom: theme.spacing(2),
-      right: theme.spacing(2),
-    },
-  })
-);
+const NewGameButton = styled(Fab)`
+  position: fixed;
+  bottom: 16px;
+  right: 16px;
+`;
 
 var gameState: Game;
 
 const HomeScreen = (props: Props) => {
-  const classes = useStyles();
 
   const [isCreatingGame, setIsCreatingGame] = useState(false);
   const [isPlayingGame, setIsPlayingGame] = useState(false);
@@ -41,7 +36,7 @@ const HomeScreen = (props: Props) => {
   };
 
   const startGame = (game: Game) => {
-    console.log("start game called");
+    // console.log("start game called");
     setGameToPlay(game);
     setIsCreatingGame(false);
     setIsPlayingGame(true);
@@ -53,7 +48,7 @@ const HomeScreen = (props: Props) => {
   }
 
   return (
-    <div className={classes.root}>
+    <div>
       <MyAppBar
         title={
           isCreatingGame
@@ -71,15 +66,15 @@ const HomeScreen = (props: Props) => {
         {isCreatingGame === false && isPlayingGame === false && (
           <>
             <GameList startGame={startGame} />
-            <div className={classes.addGameButton}>
-              <Fab
+            <div>
+              <NewGameButton
                 color="secondary"
                 size="large"
                 aria-label="add"
                 onClick={createGame}
               >
                 <AddIcon />
-              </Fab>
+              </NewGameButton>
             </div>
           </>
         )}
