@@ -11,6 +11,7 @@ import { Button, TextField, Typography } from "@material-ui/core";
 import ScoreRound from "./ScoreRound";
 import Menu from "@material-ui/core/Menu";
 import MenuItem from "@material-ui/core/MenuItem";
+import GameInfoLink from "./gamePlayScreen/GameInfoLink"
 
 interface Props {
   game: Game;
@@ -184,6 +185,10 @@ const PlayGame = (props: Props) => {
                   </Button>
                 </MenuItem>
               )}
+              <MenuItem>
+                    {/* Link should come from database of game type TODO - conditionally load component if a game info link has been set*/}
+                    <GameInfoLink link="www.google.com" />
+              </MenuItem>
             </Menu>
           </Grid>
           <Grid item xs={6} style={{ textAlign: "right" }}>
