@@ -8,8 +8,8 @@ import {
   IconButton,
 } from "@material-ui/core";
 import ClearIcon from "@material-ui/icons/Clear";
-import firebase from "../classes/firebase"
-import { TeamHistory } from "../classes/Game";
+import firebase from "../../../classes/firebase"
+import { TeamHistory } from "../../../classes/Game";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({

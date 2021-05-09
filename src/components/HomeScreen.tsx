@@ -6,7 +6,7 @@ import Game, { Team, TeamHistory } from "../classes/Game";
 import CreateGame from "./CreateGame";
 import Fab from "@material-ui/core/Fab/Fab";
 import AddIcon from "@material-ui/icons/Add";
-import PlayGame from "./PlayGame";
+import PlayGame from "./gamePlayScreen/PlayGame";
 import styled from "styled-components";
 
 interface Props {}

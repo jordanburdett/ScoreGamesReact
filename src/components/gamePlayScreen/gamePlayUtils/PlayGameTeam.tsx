@@ -1,5 +1,5 @@
 import React, { FormEvent, useState } from "react";
-import Game, { Team } from "../classes/Game";
+import Game, { Team } from "../../../classes/Game";
 import {
   Paper,
   makeStyles,
@@ -13,7 +13,7 @@ import {
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import AddIcon from "@material-ui/icons/Add";
 import RemoveIcon from "@material-ui/icons/Remove";
-import firebase from "../classes/firebase";
+import firebase from "../../../classes/firebase";
 import EditIcon from "@material-ui/icons/Edit";
 import HistoryItem from "./HistoryItem";
 

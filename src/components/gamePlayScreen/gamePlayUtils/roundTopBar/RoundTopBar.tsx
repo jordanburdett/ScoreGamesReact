@@ -2,7 +2,7 @@ import React from "react";
 import { Grid, IconButton, Typography } from "@material-ui/core";
 import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos";
 import ArrowForwardIosIcon from "@material-ui/icons/ArrowForwardIos";
-import Game from "../classes/Game";
+import Game from "../../../../classes/Game";
 
 interface Props {
   currentTeamIndex: number;

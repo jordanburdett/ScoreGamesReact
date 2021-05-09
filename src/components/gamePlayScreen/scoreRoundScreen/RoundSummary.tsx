@@ -1,6 +1,6 @@
 import React from 'react'
 import { Grid, Typography, Paper, Button } from '@material-ui/core'
-import Game, { Round } from '../classes/Game'
+import Game, { Round } from '../../../classes/Game'
 
 interface Props {
     round: Round;

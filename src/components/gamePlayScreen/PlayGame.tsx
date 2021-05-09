@@ -1,17 +1,17 @@
 import React, { useState, useEffect } from "react";
-import Game, { TeamHistory, Team, Round } from "../classes/Game";
-import firebase from "../classes/firebase";
-import { convertGame } from "../classes/utils";
-import PlayGameTeam from "./PlayGameTeam";
+import Game, { TeamHistory, Team, Round } from "../../classes/Game";
+import firebase from "../../classes/firebase";
+import { convertGame } from "../../classes/utils";
+import PlayGameTeam from "./gamePlayUtils/PlayGameTeam";
 import Grid from "@material-ui/core/Grid";
 import IconButton from "@material-ui/core/IconButton";
 import SettingsIcon from "@material-ui/icons/Settings";
 import PlayArrowIcon from "@material-ui/icons/PlayArrow";
 import { Button, TextField, Typography } from "@material-ui/core";
-import ScoreRound from "./ScoreRound";
+import ScoreRound from "./scoreRoundScreen/ScoreRound";
 import Menu from "@material-ui/core/Menu";
 import MenuItem from "@material-ui/core/MenuItem";
-import GameInfoLink from "./gamePlayScreen/GameInfoLink"
+import GameInfoLink from "./gamePlayUtils/roundTopBar/GameInfoLink"
 
 interface Props {
   game: Game;

@@ -1,7 +1,7 @@
 import React, { useState, createRef } from "react";
-import Game, { Round } from "../classes/Game";
+import Game, { Round } from "../../../classes/Game";
 import RoundSummary from "./RoundSummary";
-import RoundPlayerInput from "./RoundPlayerInput";
+import RoundPlayerInput from "../gamePlayUtils/RoundPlayerInput";
 
 interface Props {
   game: Game;

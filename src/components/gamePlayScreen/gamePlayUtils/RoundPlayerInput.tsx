@@ -7,10 +7,10 @@ import {
   Button,
 } from "@material-ui/core";
 import HistoryItem from "./HistoryItem";
-import Game from "../classes/Game";
+import Game from "../../../classes/Game";
 import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos";
 import ArrowForwardIosIcon from "@material-ui/icons/ArrowForwardIos";
-import RoundTopBar from "./RoundTopBar";
+import RoundTopBar from "./roundTopBar/RoundTopBar";
 import RoundTextField from "./RoundTextField";
 import RoundHistory from "./RoundHistory";
 

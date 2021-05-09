@@ -2,7 +2,7 @@ import React from "react";
 import { Grid, IconButton, TextField } from "@material-ui/core";
 import RemoveIcon from "@material-ui/icons/Remove";
 import AddIcon from "@material-ui/icons/Add";
-import Game from "../classes/Game";
+import Game from "../../../classes/Game";
 
 interface Props {
   game: Game;
