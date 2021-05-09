@@ -43,19 +43,16 @@ const list = () => {
     new Team("Team 1", 0, [0]),
   ]);
 
-  // game.teams.push(new Team("Team 2", 1, new History([1])))
-
   // adds a new game to firebase
-  const addGame = () => {
-    // check for login ---TODO
+  const addNewGameToFirebase = () => {
+    // check for login ---TODO - extra error handling. Incase of timeout in order to prevent app from crashing due to no database access or no being able to reference UID
 
     const usersRef = database.ref("/users");
 
     // add the game
     const reference = database.ref("/games").push(game);
-    console.log("look here", reference.key);
+    
     // add the game to the user
-
     database.ref("users/" + auth.currentUser?.uid + "/games").child(reference.key).set(true);
     
   };
