@@ -8,18 +8,19 @@ import {
 
 import { useRouter } from "next/router";
 import Game, {
+  getGameListForUser,
   Player,
   Team,
-  transformFromFirebase,
+  transfromGamesFromFirebase,
 } from "../../features/models/game";
+
 import Button from "react-bootstrap/Button";
+import AppBar from "@material-ui/core/AppBar/AppBar"
 
 const list = () => {
   const router = useRouter();
-
   const [loggedIn, setLoggedIn] = useState(false);
-
-  const [gamesList, setGamesList] = useState([]);
+  const [gamesList, setGamesList] = useState<Array<Game>>([]);
 
   useEffect(() => {
     // listen for loggin in or loggin out.
@@ -27,26 +28,25 @@ const list = () => {
       if (user) {
         // user is signed in
         setLoggedIn(() => true);
-        console.log("you are logged in");
+        
+        // anything we need to set for the user
+
+        // setGameList
+        setGamesList(getGameListForUser(user.uid));
+        
       } else {
         // No user is signed in.
         setLoggedIn(() => false);
-        router.push("/account/login");
+        router.push("/");
       }
     });
     // stop subscribing to auth changes
     return cancelAuthChange;
-  });
-
-  const game = new Game("FirstGame", [
-    new Team("Team 1", 0, [0]),
-    new Team("Team 1", 0, [0]),
-  ]);
+  }, []);
 
   // adds a new game to firebase
-  const addNewGameToFirebase = () => {
+  const addNewGameToFirebase = (game: Game) => {
     // check for login ---TODO - extra error handling. Incase of timeout in order to prevent app from crashing due to no database access or no being able to reference UID
-
     const usersRef = database.ref("/users");
 
     // add the game
@@ -57,23 +57,12 @@ const list = () => {
     
   };
 
-  // takes a game id passed in by reference and returns the game as a Game object
-  const createGameFromFirebase = async () => {
-    database
-      .ref("/")
-      .once("value")
-      .then((res) => transformFromFirebase(res.val()))
-      .then((value: Game) => {
-        console.log(value.getTeamNames());
-        return value;
-      });
-  };
+  
 
   return (
     <>
-      <div>Welcome to the game list</div>
-      <Button onClick={addGame}>Try me.</Button>
-      <Button onClick={createGameFromFirebase}>Test add from firebase</Button>
+      <Button>Some button?</Button>
+      <AppBar>some content</AppBar>
     </>
   );
 };
